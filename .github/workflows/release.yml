@@ -6,11 +6,9 @@ on:
       - '*'
 
 jobs:
-  linux:
+  release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: tar cJf /tmp/test-linux.tar.xz .
       - id: create_release
         uses: actions/create-release@latest
         env:
@@ -21,11 +19,28 @@ jobs:
           body: ${{ github.ref }}
           draft: false
           prerelease: false
+      - run: echo "${{ steps.create_release.outputs.upload_url }}" > upload_url.txt
+      - uses: actions/upload-artifact@v1
+        with:
+          name: upload_url
+          path: upload_url.txt
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: [release]
+    steps:
+      - uses: actions/checkout@v2
+      - run: tar cJf /tmp/test-linux.tar.xz .
+      - uses: actions/download-artifact@v1
+        with:
+          name: upload_url
+      - id: release_info
+        run: echo ::set-output name=upload_url::$(cat upload_url/upload_url.txt)
       - uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ steps.release_info.outputs.upload_url }}
           asset_path: /tmp/test-linux.tar.xz
           asset_name: test-linux.tar.xz
           asset_content_type: application/octet-stream
