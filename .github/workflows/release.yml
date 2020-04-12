@@ -6,35 +6,12 @@ on:
 jobs:
 
   macos:
-    runs-on: macOS-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
-      - run: |
-          export HOMEBREW_NO_AUTO_UPDATE=1
-          brew list > /tmp/save-brew-list.txt
-          brew unlink $(cat /tmp/save-brew-list.txt)
-          brew install xz coreutils gnu-tar
-          brew link --force xz coreutils gnu-tar
-      - run: |
-          export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
-          set -eux
-          curl -fsSL https://git.io/perl-install | bash -s ~/perl
-          curl -fsSL --compressed -o ~/cpm https://git.io/cpm
-          git clone https://github.com/skaji/relocatable-perl
-          ~/perl/bin/perl ~/cpm install -g --cpanfile relocatable-perl/build/cpanfile
-          sudo install -m 755 -o $USER -g staff -d /opt/perl
-          ~/perl/bin/perl relocatable-perl/build/relocatable-perl-build --prefix /opt/perl --perl_version $(cat relocatable-perl/BUILD_VERSION)
-          /opt/perl/bin/perl ~/cpm install -g App::cpanminus App::ChangeShebang
-          /opt/perl/bin/change-shebang -f /opt/perl/bin/*
-
-          mkdir releases
-          NAME=perl-$(/opt/perl/bin/perl -MConfig -e 'print $Config{archname}')
-          gcp -r /opt/perl ./$NAME
-          gtar cf $NAME.tar $NAME
-          gzip -9 --stdout $NAME.tar > releases/$NAME.tar.gz
-          xz   -9 --stdout $NAME.tar > releases/$NAME.tar.xz
-          rm -rf $NAME $NAME.tar
-      - uses: actions/upload-artifact@v1
-        with:
-          name: macos-releases
-          path: releases
+      - name: Install Rakudo
+        run: |
+          curl -fsSL -o rakudo-moar-2020.02.1-01-win-x86_64.zip https://rakudo.org/dl/rakudo/rakudo-moar-2020.02.1-01-win-x86_64.zip
+          unzip rakudo-moar-2020.02.1-01-win-x86_64.zip
+          pwd
+          rakudo-2020.02.1\bin\raku -V
