@@ -14,8 +14,8 @@ jobs:
           curl -fsSL -o rakudo-moar-2020.02.1-01-win-x86_64.zip https://rakudo.org/dl/rakudo/rakudo-moar-2020.02.1-01-win-x86_64.zip
           unzip -q rakudo-moar-2020.02.1-01-win-x86_64.zip
           $pwd = [System.IO.Directory]::GetCurrentDirectory()
-          echo "$pwd\rakudo-2020.02.1\bin;$pwd\rakudo-2020.02.1\share\perl6\site\bin"
           echo "##[add-path]$pwd\rakudo-2020.02.1\bin;$pwd\rakudo-2020.02.1\share\perl6\site\bin"
+          echo OK
       - name: Run Rakudo
         run: |
           raku --version
