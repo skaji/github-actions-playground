@@ -15,8 +15,8 @@ jobs:
           unzip -q rakudo-moar-2020.02.1-01-win-x86_64.zip
           $pwd = [System.IO.Directory]::GetCurrentDirectory()
           echo "##[add-path]$pwd\rakudo-2020.02.1\bin;$pwd\rakudo-2020.02.1\share\perl6\site\bin"
-          echo OK
           rakudo-2020.02.1\bin\raku --version
-      - name: Run Rakudo
-        run: |
-          raku --version
+      - name: Install Dependencies
+        run: zef install --/test App::Prove6
+      - name: Run Tests
+        run: prove6 -l t
