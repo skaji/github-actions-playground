@@ -11,8 +11,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install Rakudo
         run: |
-          curl -fsSL -o rakudo-moar-2020.02.1-01-win-x86_64.zip https://rakudo.org/dl/rakudo/rakudo-moar-2020.02.1-01-win-x86_64.zip
-          unzip -q rakudo-moar-2020.02.1-01-win-x86_64.zip
+          curl -fsSL -o rakudo-moar-2020.02.1-02-win-x86_64.zip https://rakudo.org/dl/rakudo/rakudo-moar-2020.02.1-02-win-x86_64.zip
+          unzip -q rakudo-moar-2020.02.1-02-win-x86_64.zip
           $pwd = [System.IO.Directory]::GetCurrentDirectory()
           echo "##[add-path]$pwd\rakudo-2020.02.1\bin;$pwd\rakudo-2020.02.1\share\perl6\site\bin"
           rakudo-2020.02.1\bin\raku --version
