@@ -16,13 +16,9 @@ use Sys::Hostname ();
         my $self = shift;
 
         my $host = $self->sockhost;
-        if ($self->sockdomain == Socket::AF_INET) {
-            $host = '127.0.0.1' if $self->sockaddr eq Socket::INADDR_ANY;
-        }
-        elsif ($self->sockdomain == Socket::AF_INET6) {
-            $host = '::1' if $self->sockaddr eq Socket::IN6ADDR_ANY;
-            $host = "[$host]";
-        }
+        $host = '127.0.0.1' if $host eq '0.0.0.0';
+        $host = '::1'       if $host eq '::';
+        $host = "[$host]"   if $self->sockdomain == Socket::AF_INET6;
 
         my $url = sprintf "%s://%s", $self->_default_scheme, $host;
         my $port = $self->sockport;
@@ -63,10 +59,12 @@ sub test {
         exit;
     }
 
-    my $c = $httpd->accept;
-    my $req = $c->get_request;
-    $c->send_response(HTTP::Response->new(200));
-    $c->close;
+    if (my $c = $httpd->accept) {
+        my $req = $c->get_request;
+        $c->send_response(HTTP::Response->new(200));
+        $c->close;
+    }
+    $httpd->close;
 
     wait;
 }
