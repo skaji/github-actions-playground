@@ -15,13 +15,5 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Perl
-        run: |
-          choco install strawberryperl
-          echo "##[add-path]C:\strawberry\c\bin;C:\strawberry\perl\site\bin;C:\strawberry\perl\bin"
-      - name: perl -V
-        run: perl -V
-      - name: Install deps
-        run: curl -fsSL https://git.io/cpm | perl - install -g
-      - name: Run Tests
-        run: perl test.pl
+      - run: |
+          curl -fsSL https://rakudo.org/dl/rakudo | jq -r '[sort_by(.build_rev) | reverse | .[] | select(.ver == "2020.05.1" and .format == "zip" and .arch == "x86_64" and .platform == "win") | .url][0]'
