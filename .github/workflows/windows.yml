@@ -16,7 +16,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          perl -V
+          perl dump.pl
           choco install strawberryperl
           echo "::add-path::C:\strawberry\c\bin;C:\strawberry\perl\site\bin;C:\strawberry\perl\bin"
-          perl -V
+          perl dump.pl
+
