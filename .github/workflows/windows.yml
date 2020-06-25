@@ -16,4 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          curl -fsSL https://rakudo.org/dl/rakudo | jq -r '[sort_by(.build_rev) | reverse | .[] | select(.ver == "2020.05.1" and .format == "zip" and .arch == "x86_64" and .platform == "win") | .url][0]'
+          perl -V
+          choco install strawberryperl
+          echo "::add-path::C:\strawberry\c\bin;C:\strawberry\perl\site\bin;C:\strawberry\perl\bin"
+          perl -V
