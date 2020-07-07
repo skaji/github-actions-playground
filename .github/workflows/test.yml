@@ -27,7 +27,6 @@ jobs:
           - '5.26'
           - '5.28'
           - '5.30'
-          - '5.32'
 
     steps:
       - uses: actions/checkout@v2
@@ -40,4 +39,7 @@ jobs:
           perl cpm install -g Plack
           ret=$?
           cat ~/.perl-cpm/build.log
+          if grep -q Retrying ~/.perl-cpm/build.log; then
+            exit 1
+          fi
           exit $ret
