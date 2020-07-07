@@ -15,4 +15,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - run: perl test.pl
+      - uses: shogo82148/actions-setup-perl@v1.3.0
+        with:
+          perl-version: "5.10"
+      - run: |
+          set +e
+          curl -fsSL -o cpm https://raw.githubusercontent.com/skaji/cpm/investigate/cpm
+          for i in {1..5}; do
+            rm -rf ~/.perl-cpm
+            perl cpm install -Llocal$i Plack
+            cat ~/.perl-cpm/build.log
+          done
