@@ -43,7 +43,7 @@ jobs:
               cat ~/.perl-cpm/build.log
               exit 1
             fi
-            if grep -q Retrying ~/.perl-cpm/build.log; then
+            if grep -q 'FAIL Download' ~/.perl-cpm/build.log; then
               cat ~/.perl-cpm/build.log
               exit 1
             fi
