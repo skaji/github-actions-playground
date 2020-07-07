@@ -1,0 +1,18 @@
+name: test
+
+on:
+  push:
+    branches:
+      - '*'
+    tags-ignore:
+      - '*'
+  pull_request:
+
+jobs:
+  test:
+
+    runs-on: macOS-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - run: perl test.pl
