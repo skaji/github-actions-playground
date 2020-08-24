@@ -14,10 +14,14 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
-          - macOS-latest
         raku-version:
-          - 'latest'
-          - '2019.11'
+          - "2020.08.1"
+          - "2020.07"
+          - "2020.06"
+          - "2020.05.1"
+          - "2020.02.1"
+          - "2020.01"
+          - "2019.11"
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
@@ -27,5 +31,5 @@ jobs:
       - name: Install Dependencies
         run: |
           export RAKUDO_LOG_PRECOMP=1
-          raku -e 'BEGIN { $*OUT.out-buffer = 0; $*ERR.out-buffer = 0; }; use Zef::CLI' search App::Prove6
-          raku -e 'BEGIN { $*OUT.out-buffer = 0; $*ERR.out-buffer = 0; }; use Zef::CLI' install --/test App::Prove6
+          raku -e 'BEGIN { $*OUT.out-buffer = 0; $*ERR.out-buffer = 0; }; use Zef::CLI' search --trace App::Prove6
+          raku -e 'BEGIN { $*OUT.out-buffer = 0; $*ERR.out-buffer = 0; }; use Zef::CLI' install --trace --/test App::Prove6
