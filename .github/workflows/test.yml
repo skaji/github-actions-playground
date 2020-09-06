@@ -19,12 +19,7 @@ jobs:
           - latest
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
-      - uses: Raku/setup-raku@v1
-        with:
-          raku-version: ${{ matrix.raku-version }}
       - name: Install Dependencies
         run: |
-          set -e
-          echo 1
-          echo 2
+          perl -e die
+          perl -e "warn q(OK)"
