@@ -20,6 +20,6 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Install Dependencies
-        run: |
-          perl -e die && \
-          perl -e "warn q(OK)"
+        run: perl -e die
+      - name: Foo
+        run: perl -e "warn q(OK)"
