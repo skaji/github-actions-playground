@@ -10,16 +10,7 @@ on:
 
 jobs:
   raku:
-    strategy:
-      matrix:
-        os:
-          # - ubuntu-latest
-          - windows-latest
-        raku-version:
-          - latest
-    runs-on: ${{ matrix.os }}
+    runs-on: windows-latest
     steps:
-      - name: Install Dependencies
-        run: perl -e die
-      - name: Foo
-        run: perl -e "warn q(OK)"
+      - run: cpanm --version
+      - run: cpanm -Ltest1 -v Text::CharWidth
