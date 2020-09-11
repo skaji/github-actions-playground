@@ -9,7 +9,7 @@ on:
   pull_request:
 
 jobs:
-  raku:
+  perl:
     runs-on: windows-latest
     steps:
       - run: cpanm --version
