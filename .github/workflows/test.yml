@@ -15,4 +15,7 @@ jobs:
       - run: docker pull kennethreitz/httpbin
       - run: docker run -d -p 8080:80 kennethreitz/httpbin
       - run: docker ps -a
-      - run: curl -fsSL http://localhost:8080/ip
+      - run: |
+        curl -sv http://localhost:8080/ip
+        curl -sv http://127.0.0.1:8080/ip
+        curl -sv 'http://[::1]:8080/ip'
