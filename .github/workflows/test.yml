@@ -10,7 +10,7 @@ on:
 
 jobs:
   perl:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
-      - run: cpanm --version
-      - run: cpanm -Ltest1 -v Text::CharWidth
+      - run: docker run -p 8080:80 kennethreitz/httpbin
+      - run: curl http://localhost:8080/ip
