@@ -2,17 +2,30 @@ name: test
 
 on:
   push:
-    branches:
+    tags:
       - '*'
-    tags-ignore:
-      - '*'
-  pull_request:
 
 jobs:
   perl:
     runs-on: ubuntu-latest
     steps:
-      - run: docker pull kennethreitz/httpbin
-      - run: docker run -d -p 8080:80 kennethreitz/httpbin
-      - run: docker ps -a
-      - run: curl http://localhost:8080/ip
+      - uses: actions/checkout@v2
+      - run: date > date.txt
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: date.txt
+          asset_name: date.txt
+          asset_content_type: text/plain
