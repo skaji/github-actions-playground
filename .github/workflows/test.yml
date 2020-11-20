@@ -14,7 +14,5 @@ jobs:
         with:
           perl-version: '5.14'
       - run: |
-          perl -V
-          cpanm -V
-          cpanm -nq App::FatPacker
-          curl -fsSL https://git.io/cpm | perl - install --reinstall App::FatPacker
+          curl -fsSL https://git.io/cpm -o cpm
+          perl cpm -V
