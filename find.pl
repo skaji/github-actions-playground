@@ -2,12 +2,21 @@
 use strict;
 use warnings;
 
-use File::Find;
+my @module = qw(
+    LWP
+    IO::Socket::SSL
+    Net::SSLeay
+    version
+    File::Copy
+    File::Spec
+    Cwd
+    HTTP::Tiny
+);
 
-my $dir = shift || 'D:\a\_actions\shogo82148\actions-setup-perl\v1\scripts\lib';
+for my $module (@module) {
+    warn "-> require $module\n";
+    my $ok = !system $^X, "-M$module", "-e1";
+    warn $ok ? "OK" : "NG", "\n";
+}
 
-find sub {
-    my $file = $File::Find::name;
-    print "$file\n" if $file !~ /\.git/;
-}, $dir;
-
+exit 0;

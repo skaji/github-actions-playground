@@ -16,4 +16,3 @@ jobs:
       - run: |
           curl -fsSL https://git.io/cpm -o cpm
           perl find.pl
-          perl exec-without-perl5lib.pl perl cpm install --verbose App::FatPacker
