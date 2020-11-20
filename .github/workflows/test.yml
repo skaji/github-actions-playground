@@ -13,6 +13,4 @@ jobs:
       - uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: '5.14'
-      - run: |
-          curl -fsSL https://git.io/cpm -o cpm
-          perl find.pl
+      - run: perl -MIO::Socket::SSL -e1
