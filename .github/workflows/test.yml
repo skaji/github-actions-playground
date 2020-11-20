@@ -15,4 +15,4 @@ jobs:
           perl-version: '5.14'
       - run: |
           curl -fsSL https://git.io/cpm -o cpm
-          perl cpm -V
+          perl cpm install --verbose App::FatPacker
