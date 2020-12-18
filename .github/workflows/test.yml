@@ -8,13 +8,12 @@ on:
 jobs:
   build:
     runs-on: macOS-latest
-    strategy:
-      matrix:
-        perl-version:
-          - '5.16'
     steps:
-      - uses: actions/checkout@v2
-      - uses: shogo82148/actions-setup-perl@v1
-        with:
-          perl-version: ${{ matrix.perl-version }}
-      - run: perl -MNet::SSLeay -e1
+      - run: sw_vers
+      - run: uname -a
+      - run: cc --version
+      - run: cpanm -nq Devel::PatchPerl && patchperl --version
+      - run: curl -fsSL https://www.cpan.org/src/5.0/perl-5.8.2.tar.bz2 | tar xjf -
+      - run: cd perl-5.8.2 && patchperl
+      - run: cd perl-5.8.2 && ./Configure -des
+      - run: cd perl-5.8.2 && make
