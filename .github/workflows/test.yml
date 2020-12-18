@@ -12,7 +12,7 @@ jobs:
       - run: sw_vers
       - run: uname -a
       - run: cc --version
-      - run: cpanm -nq Devel::PatchPerl && patchperl --version
+      - run: curl -fsSL https://cpanmin.us | perl - -nq Devel::PatchPerl && patchperl --version
       - run: curl -fsSL https://www.cpan.org/src/5.0/perl-5.8.2.tar.bz2 | tar xjf -
       - run: cd perl-5.8.2 && patchperl
       - run: cd perl-5.8.2 && ./Configure -des
