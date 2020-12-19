@@ -7,13 +7,8 @@ on:
 
 jobs:
   build:
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     steps:
-      - run: sw_vers
-      - run: uname -a
-      - run: cc --version
-      - run: curl -fsSL https://cpanmin.us | /usr/bin/perl - -nq --sudo Devel::PatchPerl
-      - run: curl -fsSL https://www.cpan.org/src/5.0/perl-5.8.2.tar.bz2 | tar xjf -
-      - run: cd perl-5.8.2 && patchperl
-      - run: cd perl-5.8.2 && ./Configure -des
-      - run: cd perl-5.8.2 && make
+      - uses: actions/checkout@v2
+      - run: |
+          docker build .
