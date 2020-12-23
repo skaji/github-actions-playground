@@ -7,10 +7,10 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macOS-11.0
     steps:
-      - uses: actions/checkout@v2
       - run: |
-          echo ${{ github.event.release.tag_name }}
-          echo ${{ github.event.ref }}
-          echo ${GITHUB_REF##*/}
+          which -a perl
+          brew install perl openssl@1.1
+          /usr/local/bin/perl -v
+          curl -fsSL https://git.io/cpm | /usr/local/bin/perl - install Net::SSLeay JSON::XS
