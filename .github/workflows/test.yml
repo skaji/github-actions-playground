@@ -12,4 +12,4 @@ jobs:
       - uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: '5.32'
-      - run: cpanm -v CPAN::Test::Dummy::Perl5::StaticInstall
+      - run: cpm install --show-build-log-on-failure CPAN::Test::Dummy::Perl5::StaticInstall
