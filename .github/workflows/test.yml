@@ -7,10 +7,9 @@ on:
 
 jobs:
   build:
-    runs-on: macOS-11.0
+    runs-on: windows-latest
     steps:
-      - run: |
-          which -a perl
-          brew install perl openssl@1.1
-          /usr/local/bin/perl -v
-          curl -fsSL https://git.io/cpm | /usr/local/bin/perl - install Net::SSLeay JSON::XS
+      - uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: '5.20'
+      - run: cpanm -n -v Furl
