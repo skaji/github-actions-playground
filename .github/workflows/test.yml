@@ -2,14 +2,31 @@ name: test
 
 on:
   push:
-    branch:
+    branches:
       - '*'
+    tags-ignore:
+      - '*'
+  pull_request:
 
 jobs:
-  build:
-    runs-on: windows-latest
+  perl:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        perl-version:
+          - 'latest'
+
+    container:
+      image: perl:${{ matrix.perl-version }}
+
     steps:
-      - uses: shogo82148/actions-setup-perl@v1
-        with:
-          perl-version: '5.32'
-      - run: cpm install --show-build-log-on-failure CPAN::Test::Dummy::Perl5::StaticInstall
+      - uses: actions/checkout@v2
+      - run: curl -fsSL --compressed https://git.io/cpm | perl - install -g Dist::Zilla
+      - name: test
+        shell: perl {0}
+        run: |
+          use 5.32.1;
+          use Dist::Zilla;
+          say Dist::Zilla->VERSION;
