@@ -15,8 +15,10 @@ jobs:
       image: perl:${{ matrix.perl-version }}
     steps:
       - uses: actions/checkout@v2
+      - run: perl -MConfig -le 'print "::set-output id=$Config{version}-$Config{archname}"'
+        id: perl-config
       - uses: actions/cache@v2
         with:
           path: ~/.perl-cpm/builds
-          key: ${{ runner.os }}-${{ matrix.perl-version }}
+          key: ${{ steps.perl-config.id }}
       - run: curl -fsSL --compressed https://git.io/cpm | perl - install -g Dist::Zilla
