@@ -2,31 +2,21 @@ name: test
 
 on:
   push:
-    branches:
-      - '*'
-    tags-ignore:
-      - '*'
   pull_request:
 
 jobs:
   perl:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         perl-version:
-          - 'latest'
-
+          - '5.32'
     container:
       image: perl:${{ matrix.perl-version }}
-
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: ~/.perl-cpm/builds
+          key: ${{ runner.os }}-${{ matrix.perl-version }}
       - run: curl -fsSL --compressed https://git.io/cpm | perl - install -g Dist::Zilla
-      - name: test
-        shell: perl {0}
-        run: |
-          use 5.32.1;
-          use Dist::Zilla;
-          say Dist::Zilla->VERSION;
