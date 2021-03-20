@@ -1,18 +1,11 @@
 name: test
 
-on:
-  push:
-  pull_request:
+on: [push, pull_request]
 
 jobs:
   perl:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        perl-version:
-          - '5.32'
-    container:
-      image: perl:${{ matrix.perl-version }}
+    container: perl:5.32
     steps:
       - uses: actions/checkout@v2
       - id: perl-config
