@@ -4,14 +4,8 @@ on: [push, pull_request]
 
 jobs:
   perl:
-    runs-on: ubuntu-latest
-    container: perl:5.32
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
-      - id: perl-config
-        run: perl -MConfig -le 'print "::set-output name=key::$Config{version}-$Config{archname}"'
-      - uses: actions/cache@v2
-        with:
-          path: ~/.perl-cpm/builds
-          key: ${{ steps.perl-config.outputs.key }}
-      - run: curl -fsSL --compressed https://git.io/cpm | perl - install -g Dist::Zilla
+      - run: perl -V
+      - run: perl test.pl
