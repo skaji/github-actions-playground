@@ -3,5 +3,5 @@ use strict;
 use warnings;
 
 system $^X, "-e", <<'EOF';
-print "hello world\n";
+print "Hello, World!\n";
 EOF
