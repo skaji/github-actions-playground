@@ -8,4 +8,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: perl -V
+      - run: curl -fsSL https://git.io/cpm | perl - install -g IPC::Run3
       - run: perl test.pl
