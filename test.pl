@@ -25,6 +25,10 @@ push @a, <<'EOF';
 say 9;
 EOF
 
+push @a, <<'EOF';
+say qq[10\n];
+EOF
+
 for my $i (0 .. $#a) {
     print "[$i] START\n";
     system $^X, "-E", $a[$i];
