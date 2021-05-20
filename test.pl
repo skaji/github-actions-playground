@@ -16,9 +16,13 @@ print "4\n";
 EOF
 push @a, $y;
 
-push @a, "say 5";
+push @a, "say q(5)";
+push @a, "say q('6)";
+push @a, q[say q("7)];
+push @a, q[say q(\8)];
 
 for my $i (0 .. $#a) {
+    print "[$a[$i]]\n";
     print "[$i] START\n";
     system $^X, "-E", $a[$i];
     print "[$i] END\n";
