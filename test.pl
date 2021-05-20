@@ -21,8 +21,11 @@ push @a, "say q('6)";
 push @a, q[say q("7)];
 push @a, q[say q(\8)];
 
+push @a, <<'EOF';
+say 9;
+EOF
+
 for my $i (0 .. $#a) {
-    print "[$a[$i]]\n";
     print "[$i] START\n";
     system $^X, "-E", $a[$i];
     print "[$i] END\n";
