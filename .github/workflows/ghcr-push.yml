@@ -2,21 +2,18 @@ name: ghcr-push
 
 on:
   push:
+    branch:
+      - '*'
     tags:
       - '*'
 
 jobs:
   ghcr-push:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: docker build and push
-        run: |
-          IMAGE_TAG=${GITHUB_REF##*/}
-          docker build --build-arg VERSION=$IMAGE_TAG -t ghcr.io/${{ github.repository }}:$IMAGE_TAG .
-          docker push ghcr.io/${{ github.repository }}:$IMAGE_TAG
+      - run: |
+          brew list
+          brew --prefix --installed openssl
+      - uses: Raku/setup-raku@v1
+      - run: |
+          zef install OpenSSL
