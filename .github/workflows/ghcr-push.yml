@@ -7,12 +7,15 @@ on:
 
 jobs:
   ghcr-push:
-    runs-on: macos-latest
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macOS-latest
+    runs-on: ${{ matrix.os }}
     steps:
-      - run: |
-          brew list
-          brew install openssl
-          brew --prefix --installed openssl
       - uses: Raku/setup-raku@v1
+      - if: matrix.os == 'macOS-latest'
+        run: brew install openssl
       - run: |
-          zef install OpenSSL
+          zef install --/test OpenSSL
