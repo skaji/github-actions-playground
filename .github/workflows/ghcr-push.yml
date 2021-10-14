@@ -2,9 +2,7 @@ name: ghcr-push
 
 on:
   push:
-    branch:
-      - '*'
-    tags:
+    branches:
       - '*'
 
 jobs:
