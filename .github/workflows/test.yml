@@ -15,8 +15,5 @@ jobs:
       - uses: actions/checkout@v2
       - run: cpanm -nq Capture::Tiny
       - run: cpanm
-        shell: bash
       - run: cpanm --unknoooooo
-        shell: bash
       - run: perl test.pl
-        shell: bash
