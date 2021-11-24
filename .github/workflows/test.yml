@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: perl:latest
+      options:
+        - --tty
     steps:
       - uses: actions/checkout@v2
       - run: cpanm -nq Capture::Tiny
