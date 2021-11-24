@@ -4,13 +4,23 @@ use Capture::Tiny qw(capture);
 
 
 {
-    print "cpanm\n";
-    my $exit = system "cpanm";
+    print "sh cpanm\n";
+    my $exit = system "sh", "-c", "cpanm";
     print "EXIT >>>>$exit, $?<<<<\n";
 }
 {
-    print "cpanm --unknown\n";
-    my $exit = system "cpanm", "--unknown";
+    print "sh cpanm --unknown\n";
+    my $exit = system "sh", "-c", "cpanm --unknown";
+    print "EXIT >>>>$exit, $?<<<<\n";
+}
+{
+    print "bash cpanm\n";
+    my $exit = system "bash", "-c", "cpanm";
+    print "EXIT >>>>$exit, $?<<<<\n";
+}
+{
+    print "bash cpanm --unknown\n";
+    my $exit = system "bash", "-c", "cpanm --unknown";
     print "EXIT >>>>$exit, $?<<<<\n";
 }
 
