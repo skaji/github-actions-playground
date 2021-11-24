@@ -11,4 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: cpanm -nq Capture::Tiny
+      - run: cpanm
+      - run: cpanm --unknoooooo
       - run: perl test.pl
