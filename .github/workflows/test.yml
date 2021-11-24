@@ -5,10 +5,12 @@ on:
 
 jobs:
   test:
+    defaults:
+      run:
+        shell: 'script -q -e -c "bash {0}"'
     runs-on: ubuntu-latest
     container:
       image: perl:latest
-      options: "--tty"
     steps:
       - uses: actions/checkout@v2
       - run: cpanm -nq Capture::Tiny
