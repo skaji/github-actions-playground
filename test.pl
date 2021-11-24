@@ -2,6 +2,7 @@ use strict;
 use warnings;
 use Capture::Tiny qw(capture);
 
+print "env $_: $ENV{$_}\n" for sort keys %ENV;
 
 {
     print "sh cpanm\n";
