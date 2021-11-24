@@ -1,0 +1,14 @@
+name: test
+
+on:
+  - push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: perl:latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: cpanm -nq Capture::Tiny
+      - run: perl test.pl
