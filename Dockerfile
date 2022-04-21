@@ -1,3 +1,3 @@
 FROM ubuntu:20.04
 
-RUN uname
+RUN uname -a
