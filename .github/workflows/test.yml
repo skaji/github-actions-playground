@@ -22,10 +22,10 @@ jobs:
           docker buildx build --platform linux/arm64 --build-arg IMAGE=centos:centos7 -t test-arm64 --load .
           ID_AMD64=$(docker create --platform linux/amd64 test-amd64)
           ID_ARM64=$(docker create --platform linux/arm64 test-arm64)
-          docker cp $ID_AMD64:/etc/redhat-release redhat-release-amd64.txt
-          docker cp $ID_ARM64:/etc/redhat-release redhat-release-arm64.txt
+          docker cp $ID_AMD64:/etc/centos-release centos-release-amd64.txt
+          docker cp $ID_ARM64:/etc/centos-release centos-release-arm64.txt
           docker rm $ID_AMD64
           docker rm $ID_ARM64
           ls -al
-          cat redhat-release-amd64.txt
-          cat redhat-release-arm64.txt
+          cat centos-release-amd64.txt
+          cat centos-release-arm64.txt
