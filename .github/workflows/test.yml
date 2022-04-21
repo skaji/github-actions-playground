@@ -22,3 +22,6 @@ jobs:
           file: Dockerfile
           platforms: linux/amd64,linux/arm64
           push: false
+          load: true
+          tags: test
+      - run: docker run --platform linux/arm64 test uname -a && docker run --platform linux/amd64 test uname -a
