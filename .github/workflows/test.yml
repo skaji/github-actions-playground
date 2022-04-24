@@ -7,25 +7,9 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: test
-        run: |
-          set -euxo pipefail
-          docker buildx build --platform linux/amd64 --build-arg IMAGE=centos:centos6 -t test-amd64 --load .
-          docker buildx build --platform linux/arm64 --build-arg IMAGE=centos:centos7 -t test-arm64 --load .
-          ID_AMD64=$(docker create --platform linux/amd64 test-amd64)
-          ID_ARM64=$(docker create --platform linux/arm64 test-arm64)
-          docker cp $ID_AMD64:/etc/centos-release centos-release-amd64.txt
-          docker cp $ID_ARM64:/etc/centos-release centos-release-arm64.txt
-          docker rm $ID_AMD64
-          docker rm $ID_ARM64
-          ls -al
-          cat centos-release-amd64.txt
-          cat centos-release-arm64.txt
+      - uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: '5.8'
+      - run: |
+          perl -V
+          perl -le 'for my $v (@ARGV) { eval "require $v; print qq[$v ], $v->VERSION" or print "$v missing" }' Module::Build Test::Harness ExtUtils::MakeMaker Module::Metadata
