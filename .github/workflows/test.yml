@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: shogo82148/actions-setup-perl@v1
         with:
-          perl-version: '5.8'
+          perl-version: '5.36'
       - run: |
-          perl -V
-          perl -le 'for my $v (@ARGV) { eval "require $v; print qq[$v ], $v->VERSION" or print "$v missing" }' Module::Build Test::Harness ExtUtils::MakeMaker Module::Metadata
+          curl -fsSL https://raw.githubusercontent.com/skaji/cpm/terminal-logger-test/cpm > cpm
+          perl cpm install Plack
