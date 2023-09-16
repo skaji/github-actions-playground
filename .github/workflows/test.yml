@@ -4,12 +4,9 @@ on:
   - push
 
 jobs:
-  build-and-push:
+  perl:
     runs-on: ubuntu-latest
+    container:
+      image: perl:5.16-buster
     steps:
-      - uses: shogo82148/actions-setup-perl@v1
-        with:
-          perl-version: '5.36'
-      - run: |
-          curl -fsSL https://raw.githubusercontent.com/skaji/cpm/terminal-logger-test/cpm > cpm
-          perl cpm install Plack
+      - uses: actions/checkout@v4
