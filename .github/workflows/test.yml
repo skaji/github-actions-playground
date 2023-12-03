@@ -11,6 +11,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          gh release create ${{ github.ref }} cpanfile
+          tar czf t.tar.gz t
+          tar cJf t.tar.xz t
+          mkdir dist
+          mv t.tar.gz t.tar.xz dist
+          gh release create ${{ github.ref }} dist/*.gz dist/*.xz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
