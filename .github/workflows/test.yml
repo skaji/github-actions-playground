@@ -6,7 +6,9 @@ on:
 jobs:
   perl:
     runs-on: ubuntu-latest
-    container:
-      image: perl:5.16-buster
     steps:
       - uses: actions/checkout@v4
+      - run: |
+          gh repo list
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
