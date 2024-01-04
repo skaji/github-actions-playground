@@ -2,19 +2,19 @@ name: test
 
 on:
   push:
-    tags:
-      - '*'
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
       - run: |
-          tar czf t.tar.gz t
-          tar cJf t.tar.xz t
-          mkdir dist
-          mv t.tar.gz t.tar.xz dist
-          gh release create ${{ github.ref }} dist/*.gz dist/*.xz
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          file /usr/bin/perl
+          /usr/bin/perl -V
+          file /usr/local/bin/perl
+          /usr/local/bin/perl -V
+
+          echo /usr/bin/perl ---
+          /usr/bin/perl fib.pl
+          echo /usr/local/bin/perl ---
+          /usr/local/bin/perl fib.pl
