@@ -7,14 +7,6 @@ jobs:
   test:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
       - run: |
-          file /usr/bin/perl
-          /usr/bin/perl -V
-          file /usr/local/bin/perl
-          /usr/local/bin/perl -V
-
-          echo /usr/bin/perl ---
-          /usr/bin/perl fib.pl
-          echo /usr/local/bin/perl ---
-          /usr/local/bin/perl fib.pl
+          uname -a
+          sw_vers
