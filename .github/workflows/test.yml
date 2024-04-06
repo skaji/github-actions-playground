@@ -5,8 +5,15 @@ on:
 
 jobs:
   test:
-    runs-on: macos-latest
+    strategy:
+      matrix:
+        os:
+          - macos-latest
+          - macos-13
+          - macos-14
+    runs-on: ${{ matrix.os }}
     steps:
       - run: |
           uname -a
           sw_vers
+          system_profiler SPHardwareDataType
