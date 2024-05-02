@@ -9,11 +9,9 @@ jobs:
       matrix:
         os:
           - macos-latest
-          - macos-13
-          - macos-14
+          - windows-latest
+          - ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
-      - run: |
-          uname -a
-          sw_vers
-          system_profiler SPHardwareDataType
+      - uses: actions/checkout@v4
+      - run: perl test.pl

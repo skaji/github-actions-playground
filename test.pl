@@ -1,38 +1,47 @@
 use strict;
 use warnings;
-use Capture::Tiny qw(capture);
 
-print "env $_: $ENV{$_}\n" for sort keys %ENV;
+$|++;
 
-{
-    print "sh cpanm\n";
-    my $exit = system "sh", "-c", "cpanm";
-    print "EXIT >>>>$exit, $?<<<<\n";
-}
-{
-    print "sh cpanm --unknown\n";
-    my $exit = system "sh", "-c", "cpanm --unknown";
-    print "EXIT >>>>$exit, $?<<<<\n";
-}
-{
-    print "bash cpanm\n";
-    my $exit = system "bash", "-c", "cpanm";
-    print "EXIT >>>>$exit, $?<<<<\n";
-}
-{
-    print "bash cpanm --unknown\n";
-    my $exit = system "bash", "-c", "cpanm --unknown";
-    print "EXIT >>>>$exit, $?<<<<\n";
+if (@ARGV and $ARGV[0] eq "test") {
+    printf "test: PERL4LIB length is %d\n", length( $ENV{PERL4LIB} || "");
+    printf "test: PATH length is %d\n", length $ENV{PATH};
+    exit;
 }
 
+my $sep  = $^O =~ /win/i ? ";" : ":";
+my $path = $^O =~ /win/i ? 'C:\\Windows\\system32' : '/usr/bin';
 
-for my $cmd (["cpanm"], ["cpanm", "--unknown"]) {
-    print "$cmd\n";
-    my ($stdout, $stderr, $exit) = capture {
-        system @$cmd;
-    };
 
-    print "STDOUT >>>>$stdout<<<<\n";
-    print "STDERR >>>>$stderr<<<<\n";
-    print "EXIT   >>>>$exit<<<<\n";
+print "--- PERL4LIB\n";
+for my $i ( 10, 100, 1_000, 10_000, 20_000, 30_000, 40_000, 50_000, 60_000, 100_000 ) {
+    local $ENV{PERL4LIB} = join ":", ( "FOO" x $i );
+    #local $ENV{PATH} = $ENV{PATH} . $sep . ( join $sep, ( $path x $i ) );
+
+    printf "exec: PERL4LIB length is %d\n", length( $ENV{PERL4LIB} || "");
+    printf "exec: PATH length is %d\n", length $ENV{PATH};
+    system $^X, $0, "test";
+    printf "test: exit $?\n";
+}
+
+print "--- PATH\n";
+for my $i ( 10, 100, 1_000, 10_000, 20_000, 30_000, 40_000, 50_000, 60_000, 100_000 ) {
+    #local $ENV{PERL4LIB} = join ":", ( "FOO" x $i );
+    local $ENV{PATH} = $ENV{PATH} . $sep . ( join $sep, ( $path x $i ) );
+
+    printf "exec: PERL4LIB length is %d\n", length( $ENV{PERL4LIB} || "");
+    printf "exec: PATH length is %d\n", length $ENV{PATH};
+    system $^X, $0, "test";
+    printf "test: exit $?\n";
+}
+
+print "--- both\n";
+for my $i ( 10, 100, 1_000, 10_000, 20_000, 30_000, 40_000, 50_000, 60_000, 100_000 ) {
+    local $ENV{PERL4LIB} = join ":", ( "FOO" x $i );
+    local $ENV{PATH} = $ENV{PATH} . $sep . ( join $sep, ( $path x $i ) );
+
+    printf "exec: PERL4LIB length is %d\n", length( $ENV{PERL4LIB} || "");
+    printf "exec: PATH length is %d\n", length $ENV{PATH};
+    system $^X, $0, "test";
+    printf "test: exit $?\n";
 }
