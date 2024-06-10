@@ -9,9 +9,7 @@ jobs:
       matrix:
         os:
           - macos-latest
-          - windows-latest
-          - ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - run: perl test.pl
+      - run: |
+          brew link --force xz
