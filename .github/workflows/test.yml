@@ -8,8 +8,7 @@ jobs:
     strategy:
       matrix:
         os:
-          - macos-latest
+          - ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
-      - run: |
-          env -u GITHUB_ACTIONS brew link --force xz
+      - run: echo ok
