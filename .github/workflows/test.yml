@@ -5,10 +5,7 @@ on:
 
 jobs:
   test:
-    strategy:
-      matrix:
-        os:
-          - ubuntu-latest
-    runs-on: ${{ matrix.os }}
+    runs-on: macos-13
     steps:
-      - run: echo ok
+      - uses: actions/checkout@v4
+      - run: bash test.sh
