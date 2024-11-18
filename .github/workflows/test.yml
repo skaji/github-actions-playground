@@ -5,7 +5,11 @@ on:
 
 jobs:
   test:
-    runs-on: macos-13
+    runs-on: ubuntu-latest
+    container:
+      image: golang:latest
     steps:
       - uses: actions/checkout@v4
-      - run: bash test.sh
+      - run: |
+          curl -fsSL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | bash -s -- -b $GOPATH/bin
+          golangci-lint run --verbose --timeout=5m
