@@ -4,21 +4,11 @@ on:
   push:
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo skip for now
-    # uses: ./.github/workflows/reuse.lint.yaml
-    # secrets:
-    #   gh-token: ${{ secrets.GH_TOKEN }}
-    #   aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    #   aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: echo skip for now
-    # uses: ./.github/workflows/reuse.test.yaml
-    # secrets:
-    #   gh-token: ${{ secrets.GH_TOKEN }}
-    #   aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    #   aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - run: |
+          echo "FOO=Bar" >> $GITHUB_ENV
+      - run: |
+          env | sort
+
