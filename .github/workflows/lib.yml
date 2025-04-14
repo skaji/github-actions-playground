@@ -14,4 +14,4 @@ jobs:
       AAA: "${{ inputs.service == 'foo' && '' || 'default' }}.yml"
       BBB: "${{ inputs.service }}"
     steps:
-      run: env | sort
+      - run: env | sort
