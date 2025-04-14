@@ -10,8 +10,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-  env:
-    AAA: "${{ inputs.service == 'foo' && '' || 'default' }".yml
-    BBB: "${{ inputs.service }}"
-  steps:
-    run: env | sort
+    env:
+      AAA: "${{ inputs.service == 'foo' && '' || 'default' }}.yml"
+      BBB: "${{ inputs.service }}"
+    steps:
+      run: env | sort
