@@ -1,0 +1,17 @@
+name: lib
+
+on:
+  workflow_call:
+    inputs:
+      service:
+        description: テスト
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+  env:
+    AAA: "${{ inputs.service == 'foo' && '' || 'default' }".yml
+    BBB: "${{ inputs.service }}"
+  steps:
+    run: env | sort
