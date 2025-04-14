@@ -11,7 +11,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      AAA: "${{ inputs.service == 'foo' && '' || 'default' }}.yml"
+      AAA: "${{ inputs.service == 'foo' && 'aaaaaaaa' || 'default' }}.yml"
       BBB: "${{ inputs.service }}"
     steps:
       - run: env | sort
