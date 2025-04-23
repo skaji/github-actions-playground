@@ -5,12 +5,9 @@ on:
 
 jobs:
   test:
-    strategy:
-      matrix:
-        include:
-          - service: foo
-          - service: hoge
-    uses: ./.github/workflows/lib.yml
-    with:
-      service: ${{ matrix.service }}
-
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          pwd
+          id
+          env | sort
