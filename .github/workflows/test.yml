@@ -12,3 +12,4 @@ jobs:
         echo $PATH
         which go
         go version
+        go env
