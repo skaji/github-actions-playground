@@ -8,8 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-        env | sort
-        echo $PATH
-        which go
-        go version
-        go env
+          env | sort
+          echo $PATH
+          which go
+          go version
+          go env
