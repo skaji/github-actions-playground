@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          pwd
-          id
-          env | sort
+        env | sort
+        echo $PATH
+        which go
+        go version
