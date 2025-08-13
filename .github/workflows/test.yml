@@ -7,9 +7,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          env | sort
-          echo $PATH
-          which go
-          go version
-          go env
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
