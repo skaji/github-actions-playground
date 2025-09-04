@@ -1,0 +1,14 @@
+name: build
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      IMAGE_VERSION: ${{ steps.foo.outputs.IMAGE_VERSION }}
+    steps:
+      - id: foo
+        run: |
+          echo IMAGE_VERSION=aaaa >> "$GITHUB_OUTPUT"
