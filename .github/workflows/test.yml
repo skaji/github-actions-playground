@@ -10,13 +10,11 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v6
-      - run: echo hello > hello.txt
-      - uses: sigstore/gh-action-sigstore-python@v3.3.0
-        with:
-          inputs: hello.txt
-      - run: ls -al
+      - run: echo hello > foo.txt
+      - uses: sigstore/cosign-installer@v4.1.2
+      - run: cosign sign-blob foo.txt --bundle foo.txt.sigstore.json --yes
       - uses: actions/upload-artifact@v6
         with:
           path: |
-            hello.txt
-            hello.txt.sigstore.json
+            foo.txt
+            foo.txt.sigstore.json
