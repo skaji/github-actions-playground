@@ -15,3 +15,8 @@ jobs:
         with:
           inputs: hello.txt
       - run: ls -al
+      - uses: actions/upload-artifact@v6
+        with:
+          path: |
+            hello.txt
+            hello.txt.sigstore.json
