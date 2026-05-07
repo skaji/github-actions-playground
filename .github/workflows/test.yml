@@ -4,13 +4,14 @@ on:
   push:
 
 jobs:
-  build:
-    uses: ./.github/workflows/build.yml
-  test2:
+  test:
     runs-on: ubuntu-latest
-    needs: build
+    permissions:
+      id-token: write
     steps:
-      - run: |
-          echo ${{ needs.build.outputs.IMAGE_VERSION }}
-
-
+      - uses: actions/checkout@v6
+      - run: echo hello > hello.txt
+      - uses: sigstore/gh-action-sigstore-python@v3.3.0
+        with:
+          inputs: hello.txt
+      - run: ls -al
