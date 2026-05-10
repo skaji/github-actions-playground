@@ -6,15 +6,21 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
     steps:
       - uses: actions/checkout@v6
-      - run: echo hello > foo.txt
-      - uses: sigstore/cosign-installer@v4.1.2
-      - run: cosign sign-blob foo.txt --bundle foo.txt.sigstore.json --yes
-      - uses: actions/upload-artifact@v6
+      - name: Install perl and cpm
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/skaji/relocatable-perl/main/perl-install | bash -s $HOME/perl
+          curl -fsSL https://raw.githubusercontent.com/skaji/cpm/main/cpm > $HOME/perl/bin/cpm
+          chmod +x $HOME/perl/bin/cpm
+          echo $HOME/perl/bin >> $GITHUB_PATH
+      - uses: actions/cache@v5
         with:
-          path: |
-            foo.txt
-            foo.txt.sigstore.json
+          path: ~/.perl-cpm/builds
+          key: cpm-cache-${{ runner.os }}-v1
+      - run: |
+          echo ~/.perl-cpm/builds || true
+          ls -al ~/.perl-cpm/builds || true
+          cpm install File::pushd
+          echo ~/.perl-cpm/builds || true
+          ls -al ~/.perl-cpm/builds || true
