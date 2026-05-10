@@ -8,19 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - name: Install perl and cpm
-        run: |
-          curl -fsSL https://raw.githubusercontent.com/skaji/relocatable-perl/main/perl-install | bash -s $HOME/perl
-          curl -fsSL https://raw.githubusercontent.com/skaji/cpm/main/cpm > $HOME/perl/bin/cpm
-          chmod +x $HOME/perl/bin/cpm
-          echo $HOME/perl/bin >> $GITHUB_PATH
-      - uses: actions/cache@v5
+      - uses: skaji/action-generate-tarball@v1
         with:
-          path: ~/.perl-cpm/builds
-          key: cpm-cache-${{ runner.os }}-v1
-      - run: |
-          echo ~/.perl-cpm/builds || true
-          ls -al ~/.perl-cpm/builds || true
-          cpm install File::pushd
-          echo ~/.perl-cpm/builds || true
-          ls -al ~/.perl-cpm/builds || true
+          top-directory: foo
+          exclude: |
+            ^\\.git/
+            ^test.sh$
+      - run: tar tf foo.tar.gz
