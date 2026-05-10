@@ -12,6 +12,6 @@ jobs:
         with:
           top-directory: foo
           exclude: |
-            ^\.git/
+            ^\.
             ^test.sh$
       - run: tar tf foo.tar.gz
